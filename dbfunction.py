@@ -13,7 +13,7 @@ def getDB_Activity():
     sql = "select * from activity"
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for activity in result:
         data = OrderedDict()
@@ -33,7 +33,7 @@ def getDB_Product():
     sql = "select * from product"
     conn.execute(sql)
     result = conn.fetchall()
-    #conn.close()
+    # conn.close()
     jsondata = []
     for product in result:
         data = OrderedDict()
@@ -55,7 +55,7 @@ def getDB_Transaction():
     sql = "select * from transaction "
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for transaction in result:
         data = OrderedDict()
@@ -75,7 +75,7 @@ def getDB_ScoreApply():
     sql = "select * from integral_table "
     conn.execute(sql)
     result = conn.fetchall()
-    #conn.close()
+    # conn.close()
     jsondata = []
     for transaction in result:
         data = OrderedDict()
@@ -94,12 +94,56 @@ def getDB_ScoreApply():
     return jsondatas
 
 
+def deleteDB_ScoreApply(id):
+    sql = "delete from integral_table where itable_id=" + id
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
+
+
+def updateDB_ScoreApply(id, application_time, finish_case, application_content, application_material, application_state,
+                        note):
+    sql = "update integral_table set " \
+          "application_time=" + application_time + ',' + \
+          "finish_case=" + finish_case + ',' + \
+          "application_content" + application_content + ',' + \
+          "application_material=" + application_material + ',' + \
+          "application_state=" + application_state + ',' +\
+          "note=" + note + ',' + "  where itable_id=" + id
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
+
+
+def addDB_ScoreApply(user_id,activity_id,itable_id,application_time, finish_case, application_content, application_material, application_state,
+                        note):
+    sql = "insert into integral_table values(%s, %s,%s, %s,%s, %s,%s, %s,%s)"%\
+          (user_id,activity_id,itable_id,application_time,finish_case,application_content,application_material,application_state,note)
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
+
 # user
 def getDB_User():
     sql = "select * from user"
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for user in result:
         data = OrderedDict()
@@ -120,7 +164,7 @@ def getDB_Admin():
     sql = "select * from admin"
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for admin in result:
         data = OrderedDict()
@@ -131,12 +175,13 @@ def getDB_Admin():
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
+
 # business
 def getDB_Business():
     sql = "select * from business"
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for bs in result:
         data = OrderedDict()
@@ -147,12 +192,13 @@ def getDB_Business():
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
+
 # publish
 def getDB_Publish():
     sql = "select * from publish"
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for bs in result:
         data = OrderedDict()
@@ -164,12 +210,13 @@ def getDB_Publish():
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
+
 # productowner_table
 def getDB_ProductOwner():
     sql = "select * from productowner_table"
     conn.execute(sql)
     result = conn.fetchall()
-   # conn.close()
+    # conn.close()
     jsondata = []
     for bs in result:
         data = OrderedDict()
@@ -179,4 +226,4 @@ def getDB_ProductOwner():
         jsondata.append(data)
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
-#conn.close()
+# conn.close()

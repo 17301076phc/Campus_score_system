@@ -42,7 +42,7 @@
       <recent name="F:\Pycharm_project\Flask_Server" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.dataHandle (1)">
+  <component name="RunManager" selected="Python.app">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Flask_Server" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -171,9 +171,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dataHandle" />
         <item itemvalue="Python.dataHandle (1)" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.dataHandle" />
         <item itemvalue="Flask server.Flask (app.py)" />
       </list>
     </recent_temporary>
@@ -214,6 +214,9 @@
       <workItem from="1590926538834" duration="3495000" />
       <workItem from="1591013433782" duration="2262000" />
       <workItem from="1591108485131" duration="374000" />
+      <workItem from="1591449682675" duration="6408000" />
+      <workItem from="1591456151744" duration="3817000" />
+      <workItem from="1591536080424" duration="359000" />
     </task>
     <servers />
   </component>
@@ -250,22 +253,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="631" y="302" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1591108798021" />
-    <state width="1493" height="151" key="GridCell.Tab.0.bottom" timestamp="1590930835656">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="249" key="GridCell.Tab.0.bottom" timestamp="1591459972223">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="151" key="GridCell.Tab.0.center" timestamp="1590930835656">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="249" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
+    <state width="1493" height="249" key="GridCell.Tab.0.center" timestamp="1591459972223">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="151" key="GridCell.Tab.0.left" timestamp="1590930835656">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="249" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
+    <state width="1493" height="249" key="GridCell.Tab.0.left" timestamp="1591459972223">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="151" key="GridCell.Tab.0.right" timestamp="1590930835656">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1493" height="249" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
+    <state width="1493" height="249" key="GridCell.Tab.0.right" timestamp="1591459972223">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
+    <state width="1493" height="249" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1590139987250">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -300,10 +307,11 @@
     <state x="546" y="100" key="svn.repositoryBrowser/0.0.1536.824@0.0.1536.824" timestamp="1591108784151" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Flask_Server$dataHandle__1_.coverage" NAME="dataHandle (1) Coverage Results" MODIFIED="1590929920651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flask_Server$dataHandle__1_.coverage" NAME="dataHandle (1) Coverage Results" MODIFIED="1591451218371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Server$controlMySQL.coverage" NAME="controlMySQL Coverage Results" MODIFIED="1589890085206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Flask_Server$app.coverage" NAME="app Coverage Results" MODIFIED="1590452637717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flask_Server$app.coverage" NAME="app Coverage Results" MODIFIED="1591459398201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Server$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1589805198708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Flask_Server$dataHandle.coverage" NAME="dataHandle Coverage Results" MODIFIED="1591452639734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Server$test.coverage" NAME="test Coverage Results" MODIFIED="1590123430791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

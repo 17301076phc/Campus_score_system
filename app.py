@@ -24,7 +24,6 @@ def getActivity():
 
 @app.route('/transaction')
 def getTransaction():
-
     return dataHandle.transactionHandle()
 
 @app.route('/publish')
@@ -104,6 +103,72 @@ def scoreapplist():
                 "total": 30,
                 "items": json.loads(db_data)
             }
+        }
+
+        return data
+
+@app.route('/scoreapply/update', methods=['GET', 'POST'])
+def scoreapplist_update():
+    if request.method == 'POST':
+        data = request.get_data()
+        jsondata = json.loads(data)
+        id = jsondata.get("itable_id")
+        application_time = jsondata.get("application_time")
+        finish_case = jsondata.get("finish_case")
+        application_content = jsondata.get("application_content")
+        application_material = jsondata.get("application_material")
+        application_state = jsondata.get("application_state")
+        note = jsondata.get("note")
+        dbfunction.updateDB_ScoreApply(id, application_time, finish_case, application_content, application_material, application_state, note)
+
+        data = {
+            "code": 200,
+            "message": "success update",
+            "data": {}
+        }
+
+        return data
+
+@app.route('/scoreapply/delete', methods=['GET', 'POST'])
+def scoreapplist_delete():
+    if request.method == 'POST':
+        data = request.get_data()
+        jsondata = json.loads(data)
+        id = jsondata.get("itable_id")
+        dbfunction.deleteDB_ScoreApply(id)
+
+        data = {
+            "code": 200,
+            "message": "success delete",
+            "data": {}
+        }
+
+        return data
+
+@app.route('/scoreapply/add', methods=['GET', 'POST'])
+def scoreapplist_add():
+    if request.method == 'POST':
+        data = request.get_data()
+        jsondata = json.loads(data)
+        user_id = jsondata.get("user_id")
+        activity_id = jsondata.get("activity_id")
+        print(activity_id)
+        itable_id = jsondata.get("itable_id")
+        application_time = jsondata.get("application_time")
+        finish_case = jsondata.get("finish_case")
+        print("finishcae="+finish_case)
+        application_content = jsondata.get("application_content")
+        application_material = jsondata.get("application_material")
+        application_state = jsondata.get("application_state")
+        note = jsondata.get("note")
+        print(note)
+        dbfunction.addDB_ScoreApply(user_id,activity_id,itable_id, application_time, finish_case, application_content, application_material,
+                                       application_state, note)
+
+        data = {
+            "code": 200,
+            "message": "success add",
+            "data": {}
         }
 
         return data
