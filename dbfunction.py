@@ -22,10 +22,23 @@ def getDB_Activity():
         data['activity_des'] = str(activity[2])
         data['activity_begintime'] = str(activity[3])
         data['activity_endtime'] = str(activity[4])
-        data['sore'] = str(activity[5])
+        data['score'] = str(activity[5])
         jsondata.append(data)
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
+
+
+def addDB_Activity(name, des, score):
+    sql = "insert into integral_table(activity_name,activity_des,score) values(%s,%s,%s)" % \
+          (name, des, score)
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
 
 
 # 获得商品
@@ -109,12 +122,14 @@ def deleteDB_ScoreApply(id):
 def updateDB_ScoreApply(id, application_time, finish_case, application_content, application_material, application_state,
                         note):
     sql = "update integral_table set " \
-          "application_time=" + application_time + ',' + \
-          "finish_case=" + finish_case + ',' + \
-          "application_content" + application_content + ',' + \
-          "application_material=" + application_material + ',' + \
-          "application_state=" + application_state + ',' +\
-          "note=" + note + ',' + "  where itable_id=" + id
+          "application_time='" + application_time + "'," + \
+          "finish_case='" + finish_case + "'," + \
+          "application_content='" + application_content + "'," + \
+          "application_materials='" + application_material + "'," + \
+          "application_state='" + application_state + "'," + \
+          "note='" + note + "'" + "where itable_id=" + id
+
+    print(sql)
     try:
         # 执行SQL语句
         conn.execute(sql)
@@ -125,10 +140,12 @@ def updateDB_ScoreApply(id, application_time, finish_case, application_content, 
         db.rollback()
 
 
-def addDB_ScoreApply(user_id,activity_id,itable_id,application_time, finish_case, application_content, application_material, application_state,
-                        note):
-    sql = "insert into integral_table values(%s, %s,%s, %s,%s, %s,%s, %s,%s)"%\
-          (user_id,activity_id,itable_id,application_time,finish_case,application_content,application_material,application_state,note)
+def addDB_ScoreApply(user_id, activity_id, itable_id, application_time, finish_case, application_content,
+                     application_material, application_state,
+                     note):
+    sql = "insert into integral_table values(%s,%s,%s,%s,%s,%s,%s,%s,%s)" % \
+          (user_id, activity_id, itable_id, "'"+application_time+"'", "'"+finish_case+"'", "'"+application_content+"'", "'"+application_material+"'",
+           "'"+application_state+"'", "'"+note+"'")
     try:
         # 执行SQL语句
         conn.execute(sql)
@@ -137,6 +154,7 @@ def addDB_ScoreApply(user_id,activity_id,itable_id,application_time, finish_case
     except:
         # 发生错误时回滚
         db.rollback()
+
 
 # user
 def getDB_User():
@@ -153,11 +171,24 @@ def getDB_User():
         data['user_password'] = str(user[3])
         data['user_major'] = str(user[4])
         data['user_class'] = str(user[5])
-        data['sore'] = str(user[6])
+        data['score'] = str(user[6])
         jsondata.append(data)
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
+#add User
+def UserAdd(user_id,admin_id,user_name,user_password,user_major,user_class,user_score):
+    sql = "insert into user values(%s,%s,%s,%s,%s,%s,%s)" % \
+          (user_id, admin_id, "'"+user_name+"'", "'" + user_password + "'", "'" + user_major + "'",
+           "'" + user_class + "'", "'" + user_score + "'")
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
 
 # admin
 def getDB_Admin():
@@ -185,13 +216,25 @@ def getDB_Business():
     jsondata = []
     for bs in result:
         data = OrderedDict()
-        data['bussiness_id'] = str(bs[0])
+        data['business_id'] = str(bs[0])
         data['admin_id'] = str(bs[1])
-        data['bussiness_name'] = str(bs[2])
+        data['business_name'] = str(bs[2])
         jsondata.append(data)
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
+#add Business
+def addBusiness(business_id,admin_id,business_name):
+    sql = "insert into business values(%s,%s,%s)" % \
+          (business_id, admin_id, "'" + business_name + "'")
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
 
 # publish
 def getDB_Publish():

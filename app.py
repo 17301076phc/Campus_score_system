@@ -1,6 +1,6 @@
 # coding:utf-8
 from flask import Flask, render_template, request, Response
-import dbfunction,dataHandle
+import dbfunction, dataHandle
 import json
 
 app = Flask(__name__)
@@ -14,37 +14,140 @@ def hello():
 @app.route('/activity', methods=['GET', 'POST'])
 def getActivity():
     if request.method == 'GET':
-        return dbfunction.getDB_Activity()
+        db_data = dbfunction.getDB_Activity()
+        data = {
+            "code": 200,
+            "message": 1,
+            "data": {
+                "total": 30,
+                "items": json.loads(db_data)
+            }
+        }
+        return data
+
     if request.method == 'POST':
         recv_data = request.get_data()
         json_re = json.loads(recv_data)
-        print(json_re['name'])
-        print(json_re['sore'])
-        print(json_re['descrip'])
+        dbfunction.addDB_Activity(json_re.get("name"), 1, json_re.get('descript'))  # 获得签到活动信息
+        return " "
 
-@app.route('/transaction')
+
+@app.route('/transaction', methods=['GET', 'POST'])
 def getTransaction():
-    return dataHandle.transactionHandle()
+    if request.method == 'GET':
+        return dataHandle.transactionGetHandle()
+    if request.method == 'POST':  # 交易完成扣除积分
+        recv_data = request.get_data()
+        json_re = json.loads(recv_data)
+        username = json_re.get("name")
+        productname = json_re.get("descript")
+        dataHandle.transactionPostHandle(username, productname)
+        return " "
+
+
+@app.route('/order/list', methods=['GET', 'POST'])  # web积分订单
+def tran():
+    if request.method == 'GET':
+        db_data = dbfunction.getDB_Transaction()
+        data = {
+            "code": 200,
+            "message": 1,
+            "data": {
+                "total": 30,
+                "items": json.loads(db_data)
+            }
+        }
+
+        return data
+
 
 @app.route('/publish')
 def getPublish():
     return dbfunction.getDB_Publish()
 
-@app.route('/product')
+
+@app.route('/product', methods=['GET', 'POST'])
 def getProduct():
-    return dbfunction.getDB_Product()
+    if request.method == 'GET':
+        db_data = dbfunction.getDB_Product()
+        data = {
+            "code": 200,
+            "message": 1,
+            "data": {
+                "total": 30,
+                "items": json.loads(db_data)
+            }
+        }
 
-@app.route('/business')
+        return data
+
+
+@app.route('/business', methods=['GET', 'POST'])
 def getBusiness():
-    return dbfunction.getDB_Business()
+    if request.method == 'GET':
+        db_data = dbfunction.getDB_Business()
+        data = {
+            "code": 200,
+            "message": 1,
+            "data": {
+                "total": 30,
+                "items": json.loads(db_data)
+            }
+        }
 
-@app.route('/user')
+        return data
+
+
+@app.route('/business/add', methods=['GET', 'POST'])
+def addBusiness():
+    if request.method == 'POST':
+        data = request.get_data()
+        jsondata = json.loads(data)
+        business_id = jsondata.get("business_id")
+        admin_id = jsondata.get("admin_id")
+        business_name = jsondata.get("business_name")
+        dbfunction.addBusiness(business_id, admin_id, business_name)
+
+        return " "
+
+
+@app.route('/user', methods=['GET', 'POST'])
 def getUser():
-    return dbfunction.getDB_User()
+    if request.method == 'GET':
+        db_data = dbfunction.getDB_User()
+        data = {
+            "code": 200,
+            "message": 1,
+            "data": {
+                "total": 30,
+                "items": json.loads(db_data)
+            }
+        }
 
-@app.route('/admin')
+        return data
+
+
+@app.route('/user/add', methods=['GET', 'POST'])
+def addUser():
+    if request.method == 'POST':
+        data = request.get_data()
+        jsondata = json.loads(data)
+        user_id = jsondata.get("user_id")
+        admin_id = jsondata.get("admin_id")
+        user_name = jsondata.get("user_name")
+        user_password = jsondata.get("user_password")
+        user_major = jsondata.get("user_major")
+        user_class = jsondata.get("user_class")
+        user_score = jsondata.get("user_score")
+
+        dbfunction.UserAdd(user_id, admin_id, user_name, user_password, user_major, user_class, user_score)
+        return " "
+
+
+@app.route('/admin', methods=['GET', 'POST'])
 def getAdmin():
     return dbfunction.getDB_Admin()
+
 
 @app.route('/user/login', methods=['GET', 'POST'])
 def login():
@@ -56,22 +159,22 @@ def login():
 
         rightdata = {
             "code": 200,
-            "message": 123,
+            "message": "success",
             "data":
                 {
-                    "token": 1
+                    "token": dataHandle.adminLogin(username)
                 }
         }
 
         errordata = {
             "code": 404,
-            "message": 123,
+            "message": "invalid username or password",
             "data":
                 {
                     "token": 1
                 }
         }
-        if username == "admin" and password == "123456":
+        if dataHandle.loginJudge(username, password):
             return rightdata
         else:
             return errordata
@@ -80,12 +183,12 @@ def login():
 @app.route('/user/info', methods=['GET', 'POST'])
 def userinfor():
     if request.method == 'GET':
+        a = request.headers.get("X-Token")
+        print("token=" + a)
         data = {
             "code": 200,
             "message": 123,
-            "data": {"roles": ["admin"], "introduction": "I am a super administrator",
-                     "avatar": "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-                     "name": "Super Admin"}
+            "data": json.loads(a)
         }
 
         return data
@@ -107,6 +210,7 @@ def scoreapplist():
 
         return data
 
+
 @app.route('/scoreapply/update', methods=['GET', 'POST'])
 def scoreapplist_update():
     if request.method == 'POST':
@@ -119,7 +223,11 @@ def scoreapplist_update():
         application_material = jsondata.get("application_material")
         application_state = jsondata.get("application_state")
         note = jsondata.get("note")
-        dbfunction.updateDB_ScoreApply(id, application_time, finish_case, application_content, application_material, application_state, note)
+
+        dbfunction.updateDB_ScoreApply(id, application_time, finish_case, application_content, application_material,
+                                       application_state, note)
+        if application_state == "examined":
+            dataHandle.scoreApply(id)
 
         data = {
             "code": 200,
@@ -128,6 +236,7 @@ def scoreapplist_update():
         }
 
         return data
+
 
 @app.route('/scoreapply/delete', methods=['GET', 'POST'])
 def scoreapplist_delete():
@@ -145,6 +254,7 @@ def scoreapplist_delete():
 
         return data
 
+
 @app.route('/scoreapply/add', methods=['GET', 'POST'])
 def scoreapplist_add():
     if request.method == 'POST':
@@ -152,18 +262,19 @@ def scoreapplist_add():
         jsondata = json.loads(data)
         user_id = jsondata.get("user_id")
         activity_id = jsondata.get("activity_id")
-        print(activity_id)
         itable_id = jsondata.get("itable_id")
         application_time = jsondata.get("application_time")
         finish_case = jsondata.get("finish_case")
-        print("finishcae="+finish_case)
         application_content = jsondata.get("application_content")
         application_material = jsondata.get("application_material")
         application_state = jsondata.get("application_state")
         note = jsondata.get("note")
-        print(note)
-        dbfunction.addDB_ScoreApply(user_id,activity_id,itable_id, application_time, finish_case, application_content, application_material,
-                                       application_state, note)
+
+        dbfunction.addDB_ScoreApply(int(str(user_id)), int(str(activity_id)), int(str(itable_id)),
+                                    str(application_time), str(finish_case),
+                                    str(application_content),
+                                    str(application_material),
+                                    str(application_state), str(note))
 
         data = {
             "code": 200,

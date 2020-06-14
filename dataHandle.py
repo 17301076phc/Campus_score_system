@@ -1,5 +1,7 @@
 # coding:utf-8
 import json
+from decimal import Decimal
+
 import dbfunction
 import decimal
 from collections import OrderedDict
@@ -14,26 +16,26 @@ class DecimalEncoder(json.JSONEncoder):
 
 cnn = dbfunction.conn
 
-def transactionHandle():
+
+def transactionGetHandle():
     data = json.loads(dbfunction.getDB_Transaction())
     jsondata = []
     for jsdata in data:
-
         pid = jsdata["p_id"]
         uid = jsdata["user_id"]
         tr_id = jsdata["tr_id"]
         tr_time = jsdata["tr_time"]
         state = jsdata["state"]
 
-        sqlp = "select p_name from product where p_id ="+pid
+        sqlp = "select p_name from product where p_id =" + pid
         cnn.execute(sqlp)
         resultp = cnn.fetchall()
 
-        sqlu = "select user_name from user where user_id =" + uid  #username
+        sqlu = "select user_name from user where user_id =" + uid  # username
         cnn.execute(sqlu)
         resultu = cnn.fetchall()
 
-        sqlsore = "select score from user where user_id =" + uid  #score
+        sqlsore = "select score from user where user_id =" + uid  # score
         cnn.execute(sqlsore)
         resultscore = cnn.fetchall()
         jdata = OrderedDict()
@@ -43,8 +45,118 @@ def transactionHandle():
         jdata["state"] = state
         jdata["score"] = str(resultscore[0])
         jsondata.append(jdata)
-    tr_data = json.dumps(jsondata,ensure_ascii=False,cls=DecimalEncoder)
+    tr_data = json.dumps(jsondata, ensure_ascii=False, cls=DecimalEncoder)
     return tr_data
 
 
-#print(transactionHandle())
+def transactionPostHandle(username, productname):
+    sqlp = "select p_id from product where p_name ='" + productname + "'"
+    cnn.execute(sqlp)
+    resultp = cnn.fetchall()
+    (pid,) = resultp[0]
+    fpid = int(float(pid))  # 商品ID
+
+    sqlprice = "select p_price from product where p_name ='" + productname + "'"
+    cnn.execute(sqlprice)
+    resultprice = cnn.fetchall()
+    (price,) = resultprice[0]
+    fprice = int(float(price))  # 商品费用
+
+    sqlu = "select user_id from user where user_name='" + username + "'"
+    cnn.execute(sqlu)
+    resultu = cnn.fetchall()
+    (uid,) = resultu[0]
+    fuid = int(float(uid))  # 用户ID
+
+    sqlscore = "select score from user where user_name='" + username + "'"
+    cnn.execute(sqlscore)
+    resultscore = cnn.fetchall()
+    (score,) = resultscore[0]
+    score = int(float(score))  # 用户消费后积分
+    score -= fprice
+
+    scoreinsert = "update user set score=" + str(score) + " where user_name='" + username + "'"
+    cnn.execute(scoreinsert)
+
+    sql = "insert into transaction(p_id,user_id) values(%s,%s)" % \
+          (fpid, fuid)
+    try:
+        # 执行SQL语句
+        cnn.execute(sql)
+        # 提交到数据库执行
+        dbfunction.db.commit()
+    except:
+        # 发生错误时回滚
+        dbfunction.db.rollback()
+
+
+# def activityHandel():
+
+def adminLogin(name):
+    sql_id = "select admin_id from admin where admin_username='" + name + "'"
+    cnn.execute(sql_id)
+    re = cnn.fetchall()
+    (id,) = re[0]
+    adminid = int(float(id))
+    sql_pass = "select admin_password from admin where admin_username='" + name + "'"
+    cnn.execute(sql_pass)
+    (repass,) = cnn.fetchall()
+    password = repass[0]
+
+    jsondata = []
+    jdata = OrderedDict()
+    jdata["admin_id"] = adminid
+    jdata["admin_username"] = name
+    jdata["admin_password"] = password
+    jsondata.append(jdata)
+    tr_data = json.dumps(jsondata)
+
+    return tr_data
+
+
+def loginJudge(name, password):
+    sql_pass = "select admin_password from admin where admin_username='" + name + "'"
+    cnn.execute(sql_pass)
+    repass = cnn.fetchall()
+    if repass:
+        (password1,) = repass[0]
+        # print(password1)
+        if password == password1:
+            return True
+    return False
+
+#活动通过后积分增加
+def scoreApply(itableid):
+    sql_user = "select user_id from integral_table where itable_id=" + str(itableid)
+    cnn.execute(sql_user)
+    resultp = cnn.fetchall()
+    (uid,) = resultp[0]
+    userid = int(float(uid))  # userID
+    sql_activity = "select activity_id from integral_table where itable_id=" + str(itableid)
+    cnn.execute(sql_activity)
+    resulta = cnn.fetchall()
+    (aid,) = resulta[0]
+    actid = int(float(aid))  # activityID
+    #
+    sqlact_score = "select score from activity where activity_id=" + str(actid)
+    cnn.execute(sqlact_score)
+    result_actscore = cnn.fetchall()
+    (act_score,) = result_actscore[0]
+    ascore = int(float(act_score))  # 活动积分
+
+    sqlscore = "select score from user where user_id=" + str(userid)
+    cnn.execute(sqlscore)
+    resultscore = cnn.fetchall()
+    (score,) = resultscore[0]
+    score = int(float(score))  # 用户积分
+    score += ascore
+    scoreinsert = "update user set score=" + str(score) + " where user_id=" + str(userid)
+    cnn.execute(scoreinsert)
+
+
+def test():
+    scoreApply(1)
+
+
+# print(transactionHandle())
+#test()

@@ -7,6 +7,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -27,11 +41,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/image" />
-    <property name="settings.editor.selected.configurable" value="web.server" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -217,6 +232,11 @@
       <workItem from="1591449682675" duration="6408000" />
       <workItem from="1591456151744" duration="3817000" />
       <workItem from="1591536080424" duration="359000" />
+      <workItem from="1591620128314" duration="11343000" />
+      <workItem from="1591705836178" duration="12598000" />
+      <workItem from="1592016234084" duration="1703000" />
+      <workItem from="1592057453815" duration="13513000" />
+      <workItem from="1592096166666" duration="3458000" />
     </task>
     <servers />
   </component>
@@ -233,10 +253,19 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="70" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1589204794051" />
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589246628590">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="282" y="88" key="#SQL_Dialects" timestamp="1591628895815">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="282" y="88" key="#SQL_Dialects/0.0.1536.864@0.0.1536.864" timestamp="1591628895815" />
+    <state x="282" y="88" key="#SQL_Resolution_Scopes" timestamp="1591629078469">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="282" y="88" key="#SQL_Resolution_Scopes/0.0.1536.864@0.0.1536.864" timestamp="1591629078469" />
+    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591629330564">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1589246628590" />
+    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1591629330564" />
     <state x="518" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589195426275">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -253,26 +282,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="631" y="302" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1591108798021" />
-    <state width="1493" height="249" key="GridCell.Tab.0.bottom" timestamp="1591459972223">
+    <state width="1493" height="190" key="GridCell.Tab.0.bottom" timestamp="1592102435868">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="249" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
-    <state width="1493" height="249" key="GridCell.Tab.0.center" timestamp="1591459972223">
+    <state width="1493" height="190" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592102435868" />
+    <state width="1493" height="190" key="GridCell.Tab.0.center" timestamp="1592102435868">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="249" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
-    <state width="1493" height="249" key="GridCell.Tab.0.left" timestamp="1591459972223">
+    <state width="1493" height="190" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1592102435868" />
+    <state width="1493" height="190" key="GridCell.Tab.0.left" timestamp="1592102435867">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="249" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
-    <state width="1493" height="249" key="GridCell.Tab.0.right" timestamp="1591459972223">
+    <state width="1493" height="190" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1592102435867" />
+    <state width="1493" height="190" key="GridCell.Tab.0.right" timestamp="1592102435868">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="151" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590930835656" />
-    <state width="1493" height="249" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1591459972223" />
+    <state width="1493" height="190" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1592102435868" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1590139987250">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -289,10 +318,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1590139987250" />
-    <state x="289" y="30" key="SettingsEditor" timestamp="1589815170719">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="289" y="31" key="SettingsEditor" timestamp="1591629178747">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="289" y="30" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1589815170719" />
+    <state x="289" y="31" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1591629178747" />
     <state x="510" y="142" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1589288611470">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -309,9 +339,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Flask_Server$dataHandle__1_.coverage" NAME="dataHandle (1) Coverage Results" MODIFIED="1591451218371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Server$controlMySQL.coverage" NAME="controlMySQL Coverage Results" MODIFIED="1589890085206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Flask_Server$app.coverage" NAME="app Coverage Results" MODIFIED="1591459398201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flask_Server$app.coverage" NAME="app Coverage Results" MODIFIED="1592102435861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Server$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1589805198708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Flask_Server$dataHandle.coverage" NAME="dataHandle Coverage Results" MODIFIED="1591452639734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flask_Server$dataHandle.coverage" NAME="dataHandle Coverage Results" MODIFIED="1592102202385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Server$test.coverage" NAME="test Coverage Results" MODIFIED="1590123430791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
