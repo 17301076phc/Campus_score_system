@@ -3,10 +3,12 @@ import json
 import MySQLdb
 from collections import OrderedDict
 
+import datetime
+
 db = MySQLdb.connect(host="localhost", user="root", passwd="", db="flaskdb", port=3306, charset='utf8')
 
 conn = db.cursor()
-
+id=5
 
 # 获得活动
 def getDB_Activity():
@@ -22,15 +24,44 @@ def getDB_Activity():
         data['activity_des'] = str(activity[2])
         data['activity_begintime'] = str(activity[3])
         data['activity_endtime'] = str(activity[4])
-        data['score'] = str(activity[5])
+        data['score'] = int(float(activity[5]))
         jsondata.append(data)
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
 
-def addDB_Activity(name, des, score):
-    sql = "insert into integral_table(activity_name,activity_des,score) values(%s,%s,%s)" % \
-          (name, des, score)
+def addDB_Activity(name, score, des):
+    id+=1
+    sql = "insert into activity(activity_id,activity_name,activity_des,score) values(%s,%s,%s,%s)" % \
+          (id,"'"+name+"'", "'"+str(des)+"'", score)
+    print(sql)
+    try:
+        # 执行SQL语句
+        conn.execute(sql)
+        # 提交到数据库执行
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
+
+
+def addIntegral(name, des):
+    sqlp = "select activity_id from activity where activity_name ='" + des + "'"
+    conn.execute(sqlp)
+    resultp = conn.fetchall()
+    (pid,) = resultp[0]
+    fpid = int(float(pid))  # 活动ID
+    sqlu = "select user_id from user where user_name ='" + name + "'"
+    conn.execute(sqlu)
+    resultu = conn.fetchall()
+    (uid,) = resultu[0]
+    fuid = int(float(uid))  # 用户ID
+    now = datetime.datetime.now()
+    now = now.strftime("%Y-%m-%d %H:%M:%S")
+    sql = "insert into integral_table(user_id,activity_id,itable_id,application_time,finish_case,application_content,application_materials,application_state,note) " \
+          "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)" % \
+          (fuid, fpid, id,"'" + now + "'", "'doing'", "'join'", "'" + name + "'" + "'join'", "'complete'", "'OK'")
+    print(sql)
     try:
         # 执行SQL语句
         conn.execute(sql)
@@ -144,8 +175,9 @@ def addDB_ScoreApply(user_id, activity_id, itable_id, application_time, finish_c
                      application_material, application_state,
                      note):
     sql = "insert into integral_table values(%s,%s,%s,%s,%s,%s,%s,%s,%s)" % \
-          (user_id, activity_id, itable_id, "'"+application_time+"'", "'"+finish_case+"'", "'"+application_content+"'", "'"+application_material+"'",
-           "'"+application_state+"'", "'"+note+"'")
+          (user_id, activity_id, itable_id, "'" + application_time + "'", "'" + finish_case + "'",
+           "'" + application_content + "'", "'" + application_material + "'",
+           "'" + application_state + "'", "'" + note + "'")
     try:
         # 执行SQL语句
         conn.execute(sql)
@@ -176,10 +208,11 @@ def getDB_User():
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
-#add User
-def UserAdd(user_id,admin_id,user_name,user_password,user_major,user_class,user_score):
+
+# add User
+def UserAdd(user_id, admin_id, user_name, user_password, user_major, user_class, user_score):
     sql = "insert into user values(%s,%s,%s,%s,%s,%s,%s)" % \
-          (user_id, admin_id, "'"+user_name+"'", "'" + user_password + "'", "'" + user_major + "'",
+          (user_id, admin_id, "'" + user_name + "'", "'" + user_password + "'", "'" + user_major + "'",
            "'" + user_class + "'", "'" + user_score + "'")
     try:
         # 执行SQL语句
@@ -189,6 +222,7 @@ def UserAdd(user_id,admin_id,user_name,user_password,user_major,user_class,user_
     except:
         # 发生错误时回滚
         db.rollback()
+
 
 # admin
 def getDB_Admin():
@@ -223,10 +257,12 @@ def getDB_Business():
         jsondatas = json.dumps(jsondata, ensure_ascii=False)
     return jsondatas
 
-#add Business
-def addBusiness(business_id,admin_id,business_name):
+
+# add Business
+def addBusiness(business_id, admin_id, business_name):
     sql = "insert into business values(%s,%s,%s)" % \
           (business_id, admin_id, "'" + business_name + "'")
+   # print(sql)
     try:
         # 执行SQL语句
         conn.execute(sql)
@@ -235,6 +271,7 @@ def addBusiness(business_id,admin_id,business_name):
     except:
         # 发生错误时回滚
         db.rollback()
+
 
 # publish
 def getDB_Publish():

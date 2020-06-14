@@ -2,6 +2,8 @@
 import json
 from decimal import Decimal
 
+import datetime
+
 import dbfunction
 import decimal
 from collections import OrderedDict
@@ -74,12 +76,19 @@ def transactionPostHandle(username, productname):
     (score,) = resultscore[0]
     score = int(float(score))  # 用户消费后积分
     score -= fprice
-
+    print(score)
     scoreinsert = "update user set score=" + str(score) + " where user_name='" + username + "'"
     cnn.execute(scoreinsert)
-
-    sql = "insert into transaction(p_id,user_id) values(%s,%s)" % \
-          (fpid, fuid)
+    dbfunction.db.commit()#提交执行
+    now = datetime.datetime.now()
+    now = now.strftime("%Y-%m-%d %H:%M:%S")
+    print(now)
+    index = 4
+    #sq!!!!!!
+    sql = "insert into transaction values(%s,%s,%s,%s,%s)" % \
+          (fpid, fuid, index, now, 1)
+    print(sql)
+    index += 1
     try:
         # 执行SQL语句
         cnn.execute(sql)
@@ -103,13 +112,13 @@ def adminLogin(name):
     (repass,) = cnn.fetchall()
     password = repass[0]
 
-    jsondata = []
+   # jsondata = []
     jdata = OrderedDict()
     jdata["admin_id"] = adminid
     jdata["admin_username"] = name
     jdata["admin_password"] = password
-    jsondata.append(jdata)
-    tr_data = json.dumps(jsondata)
+   # jsondata.append(jdata)
+    tr_data = json.dumps(jdata)
 
     return tr_data
 
@@ -125,7 +134,8 @@ def loginJudge(name, password):
             return True
     return False
 
-#活动通过后积分增加
+
+# 活动通过后积分增加
 def scoreApply(itableid):
     sql_user = "select user_id from integral_table where itable_id=" + str(itableid)
     cnn.execute(sql_user)
@@ -155,8 +165,7 @@ def scoreApply(itableid):
 
 
 def test():
-    scoreApply(1)
-
+    transactionPostHandle("Apple", "dress")
 
 # print(transactionHandle())
 #test()

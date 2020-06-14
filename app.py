@@ -24,11 +24,20 @@ def getActivity():
             }
         }
         return data
-
     if request.method == 'POST':
         recv_data = request.get_data()
         json_re = json.loads(recv_data)
-        dbfunction.addDB_Activity(json_re.get("name"), 1, json_re.get('descript'))  # 获得签到活动信息
+        dbfunction.addDB_Activity(json_re.get("name"), 1, json_re.get("descript"))  # 获得签到活动信息
+        return " "
+
+@app.route('/activitylist', methods=['GET', 'POST'])
+def getActivityAndro():
+    if request.method == 'GET':
+        return dbfunction.getDB_Activity()
+    if request.method == 'POST':
+        recv_data = request.get_data()
+        json_re = json.loads(recv_data)
+        dbfunction.addIntegral(json_re.get("name"), json_re.get('descript'))  # 获得签到活动信息
         return " "
 
 
@@ -41,6 +50,7 @@ def getTransaction():
         json_re = json.loads(recv_data)
         username = json_re.get("name")
         productname = json_re.get("descript")
+        print(username+productname)
         dataHandle.transactionPostHandle(username, productname)
         return " "
 
@@ -81,6 +91,10 @@ def getProduct():
 
         return data
 
+@app.route('/productlist', methods=['GET', 'POST'])
+def getProductAndro():
+    if request.method == 'GET':
+        return dbfunction.getDB_Product()
 
 @app.route('/business', methods=['GET', 'POST'])
 def getBusiness():
@@ -125,6 +139,14 @@ def getUser():
         }
 
         return data
+
+
+# andro
+@app.route('/student', methods=['GET', 'POST'])
+def getUserAndro():
+    if request.method == 'GET':
+        db_data = dbfunction.getDB_User()
+        return db_data
 
 
 @app.route('/user/add', methods=['GET', 'POST'])
