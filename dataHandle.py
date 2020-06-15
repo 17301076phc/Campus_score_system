@@ -32,22 +32,24 @@ def transactionGetHandle():
         sqlp = "select p_name from product where p_id =" + pid
         cnn.execute(sqlp)
         resultp = cnn.fetchall()
+        (rp,)=resultp[0]
 
         sqlu = "select user_name from user where user_id =" + uid  # username
         cnn.execute(sqlu)
         resultu = cnn.fetchall()
-
+        (ru,) = resultu[0]
         sqlsore = "select score from user where user_id =" + uid  # score
         cnn.execute(sqlsore)
         resultscore = cnn.fetchall()
+        (s,) = resultscore[0]
         jdata = OrderedDict()
-        jdata["p_name"] = str(resultp[0])
-        jdata["user_name"] = str(resultu[0])
+        jdata["p_name"] = rp
+        jdata["user_name"] = ru
         jdata["tr_time"] = tr_time
         jdata["state"] = state
-        jdata["score"] = str(resultscore[0])
+        jdata["score"] = int(float(s))
         jsondata.append(jdata)
-    tr_data = json.dumps(jsondata, ensure_ascii=False, cls=DecimalEncoder)
+    tr_data = json.dumps(jsondata, ensure_ascii=False)
     return tr_data
 
 
@@ -79,12 +81,12 @@ def transactionPostHandle(username, productname):
     print(score)
     scoreinsert = "update user set score=" + str(score) + " where user_name='" + username + "'"
     cnn.execute(scoreinsert)
-    dbfunction.db.commit()#提交执行
+    dbfunction.db.commit()  # 提交执行
     now = datetime.datetime.now()
     now = now.strftime("%Y-%m-%d %H:%M:%S")
     print(now)
     index = 4
-    #sq!!!!!!
+    # sq!!!!!!
     sql = "insert into transaction values(%s,%s,%s,%s,%s)" % \
           (fpid, fuid, index, now, 1)
     print(sql)
@@ -112,12 +114,12 @@ def adminLogin(name):
     (repass,) = cnn.fetchall()
     password = repass[0]
 
-   # jsondata = []
+    # jsondata = []
     jdata = OrderedDict()
     jdata["admin_id"] = adminid
     jdata["admin_username"] = name
     jdata["admin_password"] = password
-   # jsondata.append(jdata)
+    # jsondata.append(jdata)
     tr_data = json.dumps(jdata)
 
     return tr_data
@@ -168,4 +170,4 @@ def test():
     transactionPostHandle("Apple", "dress")
 
 # print(transactionHandle())
-#test()
+# test()

@@ -8,7 +8,8 @@ import datetime
 db = MySQLdb.connect(host="localhost", user="root", passwd="", db="flaskdb", port=3306, charset='utf8')
 
 conn = db.cursor()
-id=5
+global a
+a = 4
 
 # 获得活动
 def getDB_Activity():
@@ -31,9 +32,7 @@ def getDB_Activity():
 
 
 def addDB_Activity(name, score, des):
-    id+=1
-    sql = "insert into activity(activity_id,activity_name,activity_des,score) values(%s,%s,%s,%s)" % \
-          (id,"'"+name+"'", "'"+str(des)+"'", score)
+    sql = "update activity set activity_des='" + des + "' where activity_name='"+name+"'"
     print(sql)
     try:
         # 执行SQL语句
@@ -58,9 +57,11 @@ def addIntegral(name, des):
     fuid = int(float(uid))  # 用户ID
     now = datetime.datetime.now()
     now = now.strftime("%Y-%m-%d %H:%M:%S")
+    global a
     sql = "insert into integral_table(user_id,activity_id,itable_id,application_time,finish_case,application_content,application_materials,application_state,note) " \
           "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)" % \
-          (fuid, fpid, id,"'" + now + "'", "'doing'", "'join'", "'" + name + "'" + "'join'", "'complete'", "'OK'")
+          (fuid, fpid, a, "'" + now + "'", "'doing'", "'join'", "'" + name + "'" + "'join'", "'complete'", "'OK'")
+    a += 1
     print(sql)
     try:
         # 执行SQL语句
@@ -85,7 +86,7 @@ def getDB_Product():
         data['admin_id'] = str(product[1])
         data['p_name'] = str(product[2])
         data['p_description'] = str(product[3])
-        data['p_price'] = str(product[4])
+        data['p_price'] = int(float(product[4]))
         data['p_place'] = str(product[5])
         data['p_production_date'] = str(product[6])
         data['p_validity'] = str(product[7])
@@ -262,7 +263,7 @@ def getDB_Business():
 def addBusiness(business_id, admin_id, business_name):
     sql = "insert into business values(%s,%s,%s)" % \
           (business_id, admin_id, "'" + business_name + "'")
-   # print(sql)
+    # print(sql)
     try:
         # 执行SQL语句
         conn.execute(sql)
