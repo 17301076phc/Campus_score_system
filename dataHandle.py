@@ -86,9 +86,9 @@ def transactionPostHandle(username, productname):
     now = now.strftime("%Y-%m-%d %H:%M:%S")
     print(now)
     index = 4
-    # sq!!!!!!
+
     sql = "insert into transaction values(%s,%s,%s,%s,%s)" % \
-          (fpid, fuid, index, now, 1)
+          (fpid, fuid, index,"'" +now+"'", 1)
     print(sql)
     index += 1
     try:
