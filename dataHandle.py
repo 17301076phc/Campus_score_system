@@ -34,6 +34,11 @@ def transactionGetHandle():
         resultp = cnn.fetchall()
         (rp,)=resultp[0]
 
+        sqlprice = "select p_price from product where p_id =" + pid
+        cnn.execute(sqlprice)
+        resultprice = cnn.fetchall()
+        (rprice,) = resultprice[0]
+
         sqlu = "select user_name from user where user_id =" + uid  # username
         cnn.execute(sqlu)
         resultu = cnn.fetchall()
@@ -48,6 +53,7 @@ def transactionGetHandle():
         jdata["tr_time"] = tr_time
         jdata["state"] = state
         jdata["score"] = int(float(s))
+        jdata["p_price"]=int(float(rprice))
         jsondata.append(jdata)
     tr_data = json.dumps(jsondata, ensure_ascii=False)
     return tr_data

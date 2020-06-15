@@ -27,7 +27,7 @@ def getActivity():
     if request.method == 'POST':
         recv_data = request.get_data()
         json_re = json.loads(recv_data)
-        dbfunction.addDB_Activity(json_re.get("name"), 1, json_re.get("descript"))  # 获得签到活动信息
+        dbfunction.addDB_Activity(json_re.get("name"), 1,json_re.get("score"), json_re.get("descript"))  # 获得签到活动信息
         return " "
 
 @app.route('/activitylist', methods=['GET', 'POST'])

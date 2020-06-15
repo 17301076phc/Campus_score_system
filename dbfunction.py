@@ -8,8 +8,6 @@ import datetime
 db = MySQLdb.connect(host="localhost", user="root", passwd="", db="flaskdb", port=3306, charset='utf8')
 
 conn = db.cursor()
-global a
-a = 4
 
 # 获得活动
 def getDB_Activity():
@@ -31,9 +29,19 @@ def getDB_Activity():
     return jsondatas
 
 
-def addDB_Activity(name, score, des):
+def addDB_Activity(name, score, username,des):
     sql = "update activity set activity_des='" + des + "' where activity_name='"+name+"'"
     print(sql)
+    sqlscore = "select score from user where user_name='" + username + "'"
+    conn.execute(sqlscore)
+    resultscore = conn.fetchall()
+    (uscore,) = resultscore[0]
+    uscore = int(float(uscore))  # 用户消费后积分
+    uscore += score
+    print(uscore)
+    scoreinsert = "update user set score=" + str(uscore) + " where user_name='" + username + "'"
+    conn.execute(scoreinsert)
+    db.commit()  # 提交执行
     try:
         # 执行SQL语句
         conn.execute(sql)
@@ -57,11 +65,11 @@ def addIntegral(name, des):
     fuid = int(float(uid))  # 用户ID
     now = datetime.datetime.now()
     now = now.strftime("%Y-%m-%d %H:%M:%S")
-    global a
+
     sql = "insert into integral_table(user_id,activity_id,itable_id,application_time,finish_case,application_content,application_materials,application_state,note) " \
           "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)" % \
-          (fuid, fpid, a, "'" + now + "'", "'doing'", "'join'", "'" + name + "'" + "'join'", "'complete'", "'OK'")
-    a += 1
+          (fuid, fpid, 5, "'" + now + "'", "'doing'", "'join'", "'" + name + "'" + "'join'", "'complete'", "'OK'")
+
     print(sql)
     try:
         # 执行SQL语句
